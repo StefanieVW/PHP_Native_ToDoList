@@ -26,8 +26,7 @@ function get_development()
     
 }  
 function get_development_id()
-{        
-        global $koneksi;
+{        global $koneksi;
         if (!empty($_GET["id"]))
         {
             $id = $_GET["id"];      
@@ -71,40 +70,40 @@ function insert_development()
             
             if($result)
             {
-                // echo ("<script LANGUAGE='JavaScript'>
-                // window.alert('Data Sukses Diupdate');
-                // document.location.href='../../resources/views/Dev.php';
-                // </script>");
+                echo ("<script LANGUAGE='JavaScript'>
+                window.alert('Data Sukses Dibuat');
+                document.location.href='../../resources/views/Dev.php';
+                </script>");
                 // Cek data melalui POSTMAN
-                $response=array(
-                    'status' => 1,
-                    'message' =>'Insert Success'
-                );
+                // $response=array(
+                //     'status' => 1,
+                //     'message' =>'Insert Success'
+                // );
             }
             else
             {
-                // echo ("<script LANGUAGE='JavaScript'>
-                // window.alert('Insert Failed');
-                // </script>");
+                echo ("<script LANGUAGE='JavaScript'>
+                window.alert('Data Gagal Dibuat');
+                </script>");
                 // cek di postman POSTMAN
-                $response=array(
-                    'status' => 0,
-                    'message' =>'Insert Failed.'
-                );
+                // $response=array(
+                //     'status' => 0,
+                //     'message' =>'Insert Failed.'
+                // );
             }
         }else{
-            // echo ("<script LANGUAGE='JavaScript'>
-            //     window.alert('Paramater salah');
-            //     </script>");
+            echo ("<script LANGUAGE='JavaScript'>
+                window.alert('Paramater salah');
+                </script>");
             // CEK di postman
-            $response=array(
-                'status' => 0,
-                'message' =>'Wrong Parameter'
-            );
+            // $response=array(
+            //     'status' => 0,
+            //     'message' =>'Wrong Parameter'
+            // );
         }
         // Header untuk jika cek di postman
-        header('Content-Type: application/json');
-        echo json_encode($response);
+        // header('Content-Type: application/json');
+        // echo json_encode($response);
 }
 function updates($data)
 {
@@ -112,47 +111,48 @@ function updates($data)
     $id = $data['id'];
     $nama = $data['nama_task'];
     $tipe = $data['tipe_task'];
+    $isi = $data['isi_task'];
     $developer = $data['nama_developer'];
     mysqli_query($koneksi, "UPDATE development SET
                     nama_task = '$nama',
                     tipe_task = '$tipe',
+                    isi_task = '$isi',
                     nama_developer = '$developer'
                     WHERE id = $id");
     return mysqli_affected_rows($koneksi);
 }
 function update_development()
 {
-    // if(isset($_POST['update'])){
+    if(isset($_POST['update'])){
         if (updates($_POST) > 0){
-            // echo ("<script LANGUAGE='JavaScript'>
-            //     window.alert('Data Sukses Diupdate');
-            //     document.location.href='../../resources/views/Dev.php';
-            //     </script>");
+            echo ("<script LANGUAGE='JavaScript'>
+                window.alert('Data Sukses Diupdate');
+                document.location.href='../../resources/views/Dev.php';
+                </script>");
             // Cek data Di POSTMAN
-            $response=array(
-                'status' => 1,
-                'message' =>'Update Success'                  
-            );
+            // $response=array(
+            //     'status' => 1,
+            //     'message' =>'Update Success'                  
+            // );
         } else {
-            // echo ("<script LANGUAGE='JavaScript'>
-            //     window.alert('Gagal Update Data');
-            //     document.location.href='../../resources/views/Dev.php';
-            //     </script>");
+            echo ("<script LANGUAGE='JavaScript'>
+                window.alert('Gagal Update Data');
+                document.location.href='../../resources/views/Dev.php';
+                </script>");
                 // Cek data Di POSTMAN
-           $response=array(
-                'status' => 0,
-                'message' =>'Update Failed'                  
-            );
+        //    $response=array(
+        //         'status' => 0,
+        //         'message' =>'Update Failed'                  
+        //     );
         }
-        header('Content-Type: application/json');
-        echo json_encode($response);
-    // }
+        // header('Content-Type: application/json');
+        // echo json_encode($response);
+    }
 }
 function delete_development()
 {
     global $koneksi;
-    // $id = $_POST['delete_id'];
-    $id = $_POST['id'];
+    $id = $_POST['delete_id'];
     $query = "DELETE FROM development WHERE id=".$id;
     if(mysqli_query($koneksi, $query))
     {

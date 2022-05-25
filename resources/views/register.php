@@ -32,7 +32,7 @@ include "../../app/Config/database.php"
                   <h4 class="mt-1 mb-3 pb-1">We are The STYLE Team</h4>
                 </div>
 
-                <form action="../../app/Controllers/register.php" method="POST" onSubmit="return validasireg()">
+                <form action="../../app/Controllers/users.php?function=insert_users" method="POST" onSubmit="return validasireg()">
 		  <p>Lengkapi Form untuk <a href="../../index.php">Login</a></p>
 		  
 		  <div class="form-outline mb-1">
@@ -52,7 +52,7 @@ include "../../app/Config/database.php"
                   </div>
 
                   <div class="text-center pt-1 d-grid gap-2">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Buat Akun</button>
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" name="regis" type="submit">Buat Akun</button>
                   </div>
 
                 </form>

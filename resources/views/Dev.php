@@ -1,6 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION["user_email"])){
+include "../../app/Config/database.php";
+if(!isset($_SESSION["login"])){
   header("Location: ../../index.php");
   die();
 }
@@ -15,10 +16,9 @@ if(!isset($_SESSION["user_email"])){
   <title>Development ToDo</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../../node_modules/datatables/media/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../node_modules/@fortawesome/fontawesome-free/css/all.css">
 
   <!-- CSS Libraries -->
 
@@ -46,21 +46,14 @@ if(!isset($_SESSION["user_email"])){
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+              <div class="d-sm-none d-lg-inline-block">Hi, Ganteng</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <!-- <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
-              </a>
-              <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
-              </a>
-              <a href="features-settings.html" class="dropdown-item has-icon">
-                <i class="fas fa-cog"></i> Settings
-              </a>
+              </a> -->
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="../../app/Controllers/logout.php" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
               </a>
             </div>
@@ -106,14 +99,14 @@ if(!isset($_SESSION["user_email"])){
                   <div class="card-header">
                     <h4>ToDo List Dev</h4>
                     <div class="card-header-action">
-                      <form>
+                      <!-- <form>
                         <div class="input-group">
                           <input type="text" class="form-control" placeholder="Search">
                           <div class="input-group-btn">
                             <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                           </div>
                         </div>
-                      </form>
+                      </form> -->
                     </div>
                   </div>
                   <div class="card-body p-0">
@@ -124,31 +117,38 @@ if(!isset($_SESSION["user_email"])){
                             <th class="text-center">No</th>
                             <th>Nama Task</th>
                             <th>Nama Developer</th>
-                            <th>Tipe Task</th>
-                            <th style="width: 15rem">Action</th>
+                            <th style="width: 8rem">Tipe Task</th>
+                            <th style="width: 18rem">Action</th>
                           </tr>
                         </thead>
+                        <?php 
+                          $query = mysqli_query($koneksi, "SELECT * FROM development");
+                          $no = 1;
+                          while ($data = mysqli_fetch_assoc($query)) 
+                          {
+                        ?>
                         <tbody>
-                          <tr>
-                            <td class="text-center">1</td>
-                            <td>Create a mobile app</td>
+                          <tr id="done<?php echo $data['id'] ?>">
+                            <td class="text-center"><?php echo $no++ ?></td>
+                            <td><?php echo $data['nama_task'] ?></td>
                             <td>
                               <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle" width="35"
-                                data-toggle="tooltip" title="Wildan Ahdian">
+                                data-toggle="tooltip" title="Avatar"> <?php echo $data['nama_developer'] ?>
                             </td>
                             <td>
-                              <div class="badge badge-success">Completed</div>
+                              <div class="badge badge-success"><?php echo $data['tipe_task'] ?></div>
                             </td>
                             <td>
-                              <a href="#" class="btn btn-icon icon-left btn-primary" id="myModalEdit"
-                                data-toggle="modal" data-target="#Modaledit"><i class="far fa-edit"></i> Edit</a>
-                              <a href="#" class="btn btn-icon icon-left btn-success"
-                                data-confirm="Realy?|Tasknya sudah selesai?"
-                                data-confirm-yes="alert('Task Completed, Thankyouu :)');"><i class="fas fa-check"></i>
-                                Completed</a>
+                              <a href="" class="btn btn-icon icon-left btn-info" id="myModalDetil"
+                                data-toggle="modal" data-target="#ModalDetil" data-idt="<?= $data['id']; ?>" data-ntask="<?= $data['nama_task']; ?>" data-ttask="<?= $data['tipe_task']; ?>" data-ist="<?= $data['isi_task']; ?>" data-dev="<?= $data['nama_developer']; ?>"><i class="fas fa-info-circle"></i> Detil</a>
+                              <a href="" class="btn btn-icon icon-left btn-primary" id="myModalEdit"
+                                data-toggle="modal" data-target="#Modaledit" data-id="<?= $data['id']; ?>" data-task="<?= $data['nama_task']; ?>" data-tipe="<?= $data['tipe_task']; ?>" data-isi="<?= $data['isi_task']; ?>" data-developer="<?= $data['nama_developer']; ?>"><i class="far fa-edit"></i> Edit</a>
+                              <a href="" class="btn btn-icon icon-left btn-success done_btn" id="myModalDelete"
+                               onclick="doneAjax(<?php echo $data['id'] ?>)" ></i> Done</a>
                             </td>
                           </tr>
                         </tbody>
+                        <?php } ?>
                       </table>
                     </div>
                   </div>
@@ -158,8 +158,8 @@ if(!isset($_SESSION["user_email"])){
           </div>
         </section>
       </div>
-
     </div>
+
     <footer class="main-footer">
       <div class="footer-left">
         Copyright &copy; 2022 <div class="bullet"></div>
@@ -189,6 +189,10 @@ if(!isset($_SESSION["user_email"])){
               <input type="text" class="form-control" id="nama_task" name="nama_task" required>
             </div>
             <div class="form-group">
+              <label>Isi / Penjelas Task</label>
+              <textarea id="isi_task" name="isi_task" class="form-control" style="height: 7rem;"></textarea>
+            </div>
+            <div class="form-group">
               <label>Tipe Task</label>
               <input type="text" class="form-control" id="tipe_task" name="tipe_task" required>
             </div>
@@ -214,6 +218,7 @@ if(!isset($_SESSION["user_email"])){
     </div>
   </div>
 
+
   <!--  Modal Edit -->
   <div class="modal fade" tabindex="-1" role="dialog" id="Modaledit">
     <div class="modal-dialog" role="document">
@@ -224,48 +229,123 @@ if(!isset($_SESSION["user_email"])){
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body edit-modal">
 
-          <form action="" method="POST">
+          <form action="../../app/Controllers/dev.php?function=update_development" method="POST">
+            <input type="hidden" name="id" id="id">
             <div class="form-group">
-              <label>Nama Task</label>
-              <input type="text" class="form-control" name="nama_task" required>
+              <label for="nama_task">Nama Task</label>
+              <input type="text" class="form-control" name="nama_task" id="nama_task" required>
             </div>
             <div class="form-group">
-              <label>Tipe Task</label>
-              <select class="form-control">
-                <option>Green Task</option>
-                <option>Yellow Task</option>
-                <option>Red Task</option>
-              </select>
+              <label for="tipe_task">Tipe Task</label>
+              <input type="text" class="form-control" name="tipe_task" id="tipe_task" required>
             </div>
             <div class="form-group">
-              <label>Nama Developer</label>
-              <input type="text" class="form-control" name="nama_developer" required>
+              <label>Isi / Penjelas Task</label>
+              <textarea id="isi_task" name="isi_task" class="form-control" style="height: 7rem;"></textarea>
             </div>
-
+            <div class="form-group">
+              <label for="nama_developer">Nama Developer</label>
+              <input type="text" class="form-control" name="nama_developer" id="nama_developer" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+              <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
           </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save changes</button>
-          <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
+  </div>
+  <!-- Modal Detail -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="ModalDetil">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-detil">
 
+          <form action="" method="POST">
+            <input type="hidden" name="idt" id="idt">
+            <div class="form-group">
+              <label for="nama_task">Nama Task</label>
+              <input type="text" class="form-control" name="nama_task" id="nama_task" readonly="true">
+            </div>
+            <div class="form-group">
+              <label for="tipe_task">Tipe Task</label>
+              <input type="text" class="form-control" name="tipe_task" id="tipe_task" readonly="true">
+            </div>
+            <div class="form-group">
+              <label>Isi / Penjelas Task</label>
+              <textarea id="isi_task" name="isi_task" class="form-control" readonly="true" style="height: 7rem;"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="nama_developer">Nama Developer</label>
+              <input type="text" class="form-control" name="nama_developer" id="nama_developer" readonly="true">
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="done" class="btn btn-primary" data-dismiss="modal">Oke</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
     <!-- General JS Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script> <!-- https://code.jquery.com/jquery-3.3.1.min.js -->
+    <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../node_modules/jquery.nicescroll/jquery.nicescroll.js"></script>
+    <script src="../../node_modules/moment/min/moment.min.js"></script>
     <script src="../assets/js/stisla.js"></script>
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+      function doneAjax(id){
+        if(confirm('Are You Sure The Task Done?')){
+          $.ajax({
+            type: 'POST',
+            url: '../../app/Controllers/dev.php?function=delete_development',
+            data:{delete_id:id},
+            success:function(data){
+              $('#done'+id).hide('slow')
+            }
+          });
+        }
+      }
+
+      $(document).on("click", "#myModalDetil", function(){
+        let idt = $(this).data('idt');
+        let ntask = $(this).data('ntask');
+        let ttask = $(this).data('ttask');
+        let ist = $(this).data('ist');
+        let dev = $(this).data('dev');
+
+        $('#idt').val(idt);
+        $(".modal-detil #nama_task").val(ntask)
+        $(".modal-detil #tipe_task").val(ttask)
+        $(".modal-detil #isi_task").val(ist)
+        $(".modal-detil #nama_developer").val(dev)
+      });
+      $(document).on("click", "#myModalEdit", function(){
+        let id = $(this).data('id');
+        let task = $(this).data('task');
+        let tipe = $(this).data('tipe');
+        let isi = $(this).data('isi');
+        let developer = $(this).data('developer');
+
+        $('#id').val(id);
+        $(".edit-modal #nama_task").val(task)
+        $(".edit-modal #tipe_task").val(tipe)
+        $(".edit-modal #isi_task").val(isi)
+        $(".edit-modal #nama_developer").val(developer)
+      });
+    </script>
 
     <!-- JS Libraies -->
 
@@ -276,5 +356,4 @@ if(!isset($_SESSION["user_email"])){
 
     <!-- Page Specific JS File -->
 </body>
-
 </html>
