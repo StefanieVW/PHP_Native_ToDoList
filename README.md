@@ -1,6 +1,9 @@
 ## Getting Started
 Ini adalah website PHP ToDo List yang dikembangkan bersama syaiful dan kelompok 5(Yuni, Ela, Agus Vikri, Brigitha) <br/>
 berbahasa pemrograman PHP Native dengan API CRUD <br/>
+<br/>
+![Screenshot from 2022-05-25 22-02-39](https://user-images.githubusercontent.com/65906055/170296300-6f2ff4cc-3eec-4b67-ab57-99f3b5cc8397.png)
+<br/>
 INSTALASI : <br/>
 Requirements <br/>
 pastikan node js kalian versi v14.19.1 dan npm v8.10.0 dan yarn v1.22.18
