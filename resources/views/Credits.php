@@ -14,7 +14,7 @@ if(!isset($_SESSION["login"])){
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <link rel="icon" href="../images/icontodo.png" type="image/x-icon">
-  <title>Development ToDo</title>
+  <title>Credits Development</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" type="text/css" href="../../node_modules/datatables/media/css/jquery.dataTables.min.css">
@@ -47,7 +47,7 @@ if(!isset($_SESSION["login"])){
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user">
               <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block">Hi, Ganteng</div>
+              <div class="d-sm-none d-lg-inline-block">Hi, DevOps</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
               <!-- <a href="features-profile.html" class="dropdown-item has-icon">
@@ -70,9 +70,9 @@ if(!isset($_SESSION["login"])){
             <a href="Dev.php">TL</a>
           </div>
           <ul class="sidebar-menu">
-            <li class="active"><a class="nav-link" href="Dev.php"><i class="fas fa-fire"></i>
+            <li class=""><a class="nav-link" href="Dev.php"><i class="fas fa-fire"></i>
                 <span>Development</span></a></li>
-            <li><a class="nav-link" href="Credits.php"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
+            <li class="active"><a class="nav-link" href="#"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
           </ul>
 
           <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -84,73 +84,93 @@ if(!isset($_SESSION["login"])){
       </div>
 
       <!-- Main Content -->
+      <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <button class="btn btn-primary" id="myModal" data-toggle="modal" data-target="#Modalku">Tambah Task</button>
+            <h1>Credits</h1>
           </div>
 
           <div class="section-body">
-            <h2 class="section-title">ToDo List Dev</h2>
-            <p class="section-lead">Mari Buat Project yang spektakuler</p>
+            <h2 class="section-title">Thanks To ...</h2>
+            <p class="section-lead">
+              We would like to thank the makers of these cool plugins and images.
+            </p>
 
             <div class="row">
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>ToDo List Dev</h4>
-                    <div class="card-header-action">
-                      <!-- <form>
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search">
-                          <div class="input-group-btn">
-                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                          </div>
+                    <h4>Credits</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Stisla Admin</h6>
+                          <p>by Muhammad Nauval Azhar</p>
                         </div>
-                      </form> -->
+                      </div>
+                    </div>
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Vim Editor</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Visual Studio Code</h6>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="card-body p-0">
-                    <div class="table-responsive">
-                      <table class="table table-striped" id="sortable-table">
-                        <thead>
-                          <tr>
-                            <th class="text-center">No</th>
-                            <th>Nama Task</th>
-                            <th>Nama Developer</th>
-                            <th style="width: 8rem">Tipe Task</th>
-                            <th style="width: 18rem">Action</th>
-                          </tr>
-                        </thead>
-                        <?php 
-                          $query = mysqli_query($koneksi, "SELECT * FROM development");
-                          $no = 1;
-                          while ($data = mysqli_fetch_assoc($query)) 
-                          {
-                        ?>
-                        <tbody>
-                          <tr id="done<?php echo $data['id'] ?>">
-                            <td class="text-center"><?php echo $no++ ?></td>
-                            <td><?php echo $data['nama_task'] ?></td>
-                            <td>
-                              <img alt="image" src="../assets/img/avatar/avatar-5.png" class="rounded-circle" width="35"
-                                data-toggle="tooltip" title="Avatar"> <?php echo $data['nama_developer'] ?>
-                            </td>
-                            <td>
-                              <div class="badge badge-success"><?php echo $data['tipe_task'] ?></div>
-                            </td>
-                            <td>
-                              <a href="" class="btn btn-icon icon-left btn-info" id="myModalDetil"
-                                data-toggle="modal" data-target="#ModalDetil" data-idt="<?= $data['id']; ?>" data-ntask="<?= $data['nama_task']; ?>" data-ttask="<?= $data['tipe_task']; ?>" data-ist="<?= $data['isi_task']; ?>" data-dev="<?= $data['nama_developer']; ?>"><i class="fas fa-info-circle"></i> Detil</a>
-                              <a href="" class="btn btn-icon icon-left btn-primary" id="myModalEdit"
-                                data-toggle="modal" data-target="#Modaledit" data-id="<?= $data['id']; ?>" data-task="<?= $data['nama_task']; ?>" data-tipe="<?= $data['tipe_task']; ?>" data-isi="<?= $data['isi_task']; ?>" data-developer="<?= $data['nama_developer']; ?>"><i class="far fa-edit"></i> Edit</a>
-                              <a href="" class="btn btn-icon icon-left btn-success done_btn" id="myModalDelete"
-                               onclick="doneAjax(<?php echo $data['id'] ?>)" ></i> Done</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <?php } ?>
-                      </table>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Kelompok 5</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>BackEnd Developer (DevOps)</h6>
+                          <p>Muhammad Syaiful Karim</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Front Developer</h6>
+                          <p>Yuni Yulistiawati</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Front Developer</h6>
+                          <p>Agus vikri manaf</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-unstyled list-unstyled-border mt-4">
+                      <div class="media">
+                        <div class="media-icon"><i class="far fa-circle"></i></div>
+                        <div class="media-body">
+                          <h6>Testing Software</h6>
+                          <p>Ella indriani</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
