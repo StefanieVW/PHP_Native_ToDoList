@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.2",
-    "bootstrap": "^4.2.1",
+    "bootstrap": "4.3.1",
     "bootstrap-colorpicker": "^3.0.3",
     "bootstrap-daterangepicker": "^3.0.3",
     "bootstrap-social": "^5.1.1",
