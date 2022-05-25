@@ -1,12 +1,13 @@
 ## Getting Started
-Ini adalah website PHP ToDo List yang dikembangkan bersama syaiful dan kelompok 5 berbahasa pemrograman PHP Native dengan API CRUD
-INSTALASI :
-Requirements
+Ini adalah website PHP ToDo List yang dikembangkan bersama syaiful dan kelompok 5(Yuni, Ela, Agus Vikri, Brigitha) <br/>
+berbahasa pemrograman PHP Native dengan API CRUD <br/>
+INSTALASI : <br/>
+Requirements <br/>
 pastikan node js kalian versi v14.19.1 dan npm v8.10.0 dan yarn v1.22.18
-
-buka terminal anda atau gitbash baik windows atau mac atau linux ketikan
+<br/>
+buka terminal anda atau gitbash baik windows atau mac atau linux ketikan <br/>
 git clone https://github.com/syaiful505/PHP_Native_ToDoList.git
-
+<br/>
 atau download via zip
 lalu setelah
 download dan masuk ke folder PHP_Native_ToDoList pada terminal 
@@ -48,4 +49,15 @@ app/Config/database.php
 
 **[Get All Data Development]**
 ![Screenshot from 2022-05-25 21-50-02](https://user-images.githubusercontent.com/65906055/170292377-d84b98dd-4025-4981-bac8-043314c9cf1a.png)
-
+<br/>
+Thanks Giving Suport :
+Admin stisla template <br/>
+https://getstisla.com/
+<br/>
+<br/>
+Vim Editor for developing program (ubuntu, me)<br/>
+https://www.vim.org/download.php
+<br/>
+<br/>
+VScode Editor for developing program (team)<br/>
+https://code.visualstudio.com/
