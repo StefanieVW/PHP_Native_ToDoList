@@ -1,3 +1,7 @@
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
+
 {
   "name": "todolist",
   "version": "0.0.1",
@@ -70,4 +74,5 @@
     "imagemin-mozjpeg": "^8.0.0",
     "nunjucks": "^3.1.7"
   }
+  
 }
